@@ -1,0 +1,4 @@
+GET https://tintucapi.phamtruong010.xyz/api/list-category ;
+###
+
+GET https://tintucapi.phamtruong010.xyz/api/list-post
