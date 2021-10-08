@@ -1,10 +1,27 @@
+import { requestDetailPost } from "api/api";
 import Header from "components/User/Header/Header";
 import Navbar from "components/User/Navbar/Navbar";
 import NewsDetail from "components/User/News/NewDetail";
 import { categories, listPost } from "data";
-import React from "react";
+import React, { useEffect } from "react";
 
 function Detail({ match }) {
+  useEffect(() => {
+    getData()
+  }, [])
+  const getData = async () => {
+    const params = {
+      post_id: match.params.id
+    }
+    try {
+      let res = await requestDetailPost(params)
+      console.log(res);
+    } catch (error) {
+      console.log("error");
+    } finally {
+
+    }
+  }
   const post = listPost.data.find(
     (element) => element.id === Number(match.params.id)
   );

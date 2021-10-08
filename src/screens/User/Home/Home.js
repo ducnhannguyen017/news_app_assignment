@@ -1,11 +1,26 @@
 import Category from "components/User/Category/Category";
 import Header from "components/User/Header/Header";
 import Navbar from "components/User/Navbar/Navbar";
-import React from "react";
+import React, { useEffect } from "react";
 import { categories, listPost } from "data";
-//import for data
+import { requestCategory } from '../../../api/api'
+import { connect } from 'react-redux'
 
-function Home() {
+export const Home = (props) => {
+  console.log(props);
+  useEffect(() => {
+    getData()
+  }, [])
+  const getData = async () => {
+    try {
+      let res = await requestCategory()
+      console.log(res);
+    } catch (error) {
+      console.log("error");
+    } finally {
+      
+    }
+  }
   return (
     <>
       <Header />
@@ -15,4 +30,12 @@ function Home() {
   );
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
