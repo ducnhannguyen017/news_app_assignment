@@ -4,7 +4,11 @@ import NewsCard from "components/User/News/NewsCard";
 
 function CategoryCard(props) {
   const { category, listPost } = props;
-  const initialState = category.category_child[0].id;
+  console.log(category.category_child.length);
+  const initialState =
+    category.category_child.length === Number(0)
+      ? null
+      : category.category_child[0].id;
   const [childId, setChildId] = useState(initialState);
   const onClickHandle = (data) => {
     setChildId(data);

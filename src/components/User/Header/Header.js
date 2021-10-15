@@ -18,6 +18,13 @@ function Header() {
           />
         </Link>
         <span className="time-now">{today}</span>
+        <div className="right">
+          <h2>
+            <Link to="/auth" className="btn24hqua " title="Mới nhất">
+              Login
+            </Link>
+          </h2>
+        </div>
       </div>
     </header>
   );

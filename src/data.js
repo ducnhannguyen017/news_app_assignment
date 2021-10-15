@@ -2,7 +2,7 @@ export const categories = [
   {
     id: 1,
     image: null,
-    name: "Thơi sự",
+    name: "Thời sự",
     createdAt: "2021-09-13T06:59:26.000Z",
     updatedAt: "2021-09-13T07:10:50.000Z",
     category_child: [

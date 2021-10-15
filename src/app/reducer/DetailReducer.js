@@ -1,7 +1,7 @@
 import {
-  GET_CATEGORY_LOADING,
-  GET_CATEGORY_SUCCESS,
-  GET_CATEGORY_ERROR,
+  GET_DETAIL_LOADING,
+  GET_DETAIL_SUCCESS,
+  GET_DETAIL_ERROR,
 } from "../action/type";
 
 const initialState = {
@@ -10,12 +10,12 @@ const initialState = {
   error: null,
 };
 
-export default function CategoryReducer(state = initialState, action) {
+export default function DetailReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_CATEGORY_LOADING: {
+    case GET_DETAIL_LOADING: {
       return { ...state, isLoading: true };
     }
-    case GET_CATEGORY_SUCCESS: {
+    case GET_DETAIL_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -23,7 +23,7 @@ export default function CategoryReducer(state = initialState, action) {
         data: action.payload,
       };
     }
-    case GET_CATEGORY_ERROR: {
+    case GET_DETAIL_ERROR: {
       return {
         ...state,
         error: action.payload,

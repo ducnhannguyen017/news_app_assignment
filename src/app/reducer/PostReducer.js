@@ -1,7 +1,7 @@
 import {
-  GET_CATEGORY_LOADING,
-  GET_CATEGORY_SUCCESS,
-  GET_CATEGORY_ERROR,
+  GET_POST_LOADING,
+  GET_POST_SUCCESS,
+  GET_POST_ERROR,
 } from "../action/type";
 
 const initialState = {
@@ -10,12 +10,12 @@ const initialState = {
   error: null,
 };
 
-export default function CategoryReducer(state = initialState, action) {
+export default function PostReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_CATEGORY_LOADING: {
+    case GET_POST_LOADING: {
       return { ...state, isLoading: true };
     }
-    case GET_CATEGORY_SUCCESS: {
+    case GET_POST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -23,7 +23,7 @@ export default function CategoryReducer(state = initialState, action) {
         data: action.payload,
       };
     }
-    case GET_CATEGORY_ERROR: {
+    case GET_POST_ERROR: {
       return {
         ...state,
         error: action.payload,

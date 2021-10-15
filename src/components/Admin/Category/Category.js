@@ -14,6 +14,8 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { Link } from "react-router-dom";
+import { requestRemoveParentCategory } from "api/api";
 
 const useRowStyles = makeStyles({
   root: {
@@ -30,6 +32,7 @@ const useRowStyles = makeStyles({
 
 function Row(props) {
   const { row } = props;
+  const { handleClickDelete } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -51,11 +54,19 @@ function Row(props) {
         <TableCell>{row.name}</TableCell>
         <TableCell>{row.createdAt}</TableCell>
         <TableCell>{row.updatedAt}</TableCell>
-        <TableCell style={{ display: "flex", flexDirection: "column" }}>
+        <TableCell style={{ display: "flex" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            <Link to={`/admin/edit-parent/${row.id}`}>View</Link>
+          </Button>
           <Button
             variant="contained"
             color="secondary"
             className={classes.button}
+            onClick={() => handleClickDelete(row, "parent")}
           >
             Delete
           </Button>
@@ -100,12 +111,15 @@ function Row(props) {
                           color="primary"
                           className={classes.button}
                         >
-                          View
+                          <Link to={`/admin/edit-child/${childRow.id}`}>
+                            View
+                          </Link>
                         </Button>
                         <Button
                           variant="contained"
                           color="secondary"
                           className={classes.button}
+                          onClick={() => handleClickDelete(childRow, "child")}
                         >
                           Delete
                         </Button>
@@ -122,12 +136,9 @@ function Row(props) {
   );
 }
 export default function Category(props) {
-  const { categories } = props;
+  const { categories, handleClickDelete } = props;
   return (
     <>
-      <h2 style={{ fontSize: "25px" }}>
-        <b>Parent Category</b>
-      </h2>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <colgroup>
@@ -150,7 +161,11 @@ export default function Category(props) {
           </TableHead>
           <TableBody>
             {categories.map((row) => (
-              <Row key={row.name} row={row} />
+              <Row
+                handleClickDelete={handleClickDelete}
+                key={row.id}
+                row={row}
+              />
             ))}
           </TableBody>
         </Table>

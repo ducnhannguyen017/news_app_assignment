@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 export default function PostsList(props) {
-  const { rows, columns } = props;
+  const { rows, columns, handleDeletePost } = props;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -71,20 +71,21 @@ export default function PostsList(props) {
                     <TableCell>{row.id}</TableCell>
                     <TableCell>{row.title}</TableCell>
                     <TableCell>{row.description}</TableCell>
-                    <TableCell>{String(row.createdAt)}</TableCell>
-                    <TableCell>{String(row.updatedAt)}</TableCell>
-                    <TableCell style={{ display: "flex" }}>
+                    <TableCell>{String(row.parentName)}</TableCell>
+                    <TableCell>{String(row.childName)}</TableCell>
+                    <TableCell>
                       <Button
                         variant="contained"
                         color="primary"
                         className={classes.button}
                       >
-                        <Link to={`/detail/${row.id}`}>View</Link>
+                        <Link to={`/admin/edit-post/${row.id}`}>View</Link>
                       </Button>
                       <Button
                         variant="contained"
                         color="secondary"
                         className={classes.button}
+                        onClick={() => handleDeletePost(row.id)}
                       >
                         Delete
                       </Button>
