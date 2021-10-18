@@ -26,42 +26,46 @@ function NavbarList(props) {
               <div className="ss-wrapper">
                 <div className="ss-content">
                   <div className="row-menu">
-                    {categories.map((categoryParent) => (
-                      <ul
-                        key={categoryParent.id}
-                        className="cat-menu fix-view-cate-0"
-                        data-cate="0"
-                      >
-                        <li className="thoisu">
-                          <Link
-                            to={`/home/${categoryParent.id}`}
-                            title="Thời sự"
-                            data-medium="Menu-ThoiSu"
-                            data-itm-source="#vn_source=Home&amp;vn_campaign=Header&amp;vn_medium=Menu-ThoiSu&amp;vn_term=Desktop"
-                            data-itm-added="1"
-                            onClick={handleClickCloseNavbarList}
+                    {categories === undefined
+                      ? null
+                      : categories.map((categoryParent) => (
+                          <ul
+                            key={categoryParent.id}
+                            className="cat-menu fix-view-cate-0"
+                            data-cate="0"
                           >
-                            {categoryParent.name}
-                          </Link>
-                        </li>
+                            <li className="thoisu">
+                              <Link
+                                to={`/home/${categoryParent.id}`}
+                                title="Thời sự"
+                                data-medium="Menu-ThoiSu"
+                                data-itm-source="#vn_source=Home&amp;vn_campaign=Header&amp;vn_medium=Menu-ThoiSu&amp;vn_term=Desktop"
+                                data-itm-added="1"
+                                onClick={handleClickCloseNavbarList}
+                              >
+                                {categoryParent.name}
+                              </Link>
+                            </li>
 
-                        {categoryParent.category_child.map((categoryChild) => (
-                          <li key={categoryChild.id} null="">
-                            <Link
-                              to={`/home/${categoryParent.id}`}
-                              title="Chính trị"
-                              href="https://vnexpress.net/thoi-su/chinh-tri"
-                              data-medium="Menu-ChinhTri"
-                              data-itm-source="#vn_source=Home&amp;vn_campaign=Header&amp;vn_medium=Menu-ChinhTri&amp;vn_term=Desktop"
-                              data-itm-added="1"
-                              onClick={handleClickCloseNavbarList}
-                            >
-                              {categoryChild.name}
-                            </Link>
-                          </li>
+                            {categoryParent.category_child.map(
+                              (categoryChild) => (
+                                <li key={categoryChild.id} null="">
+                                  <Link
+                                    to={`/home/${categoryParent.id}`}
+                                    title="Chính trị"
+                                    href="https://vnexpress.net/thoi-su/chinh-tri"
+                                    data-medium="Menu-ChinhTri"
+                                    data-itm-source="#vn_source=Home&amp;vn_campaign=Header&amp;vn_medium=Menu-ChinhTri&amp;vn_term=Desktop"
+                                    data-itm-added="1"
+                                    onClick={handleClickCloseNavbarList}
+                                  >
+                                    {categoryChild.name}
+                                  </Link>
+                                </li>
+                              )
+                            )}
+                          </ul>
                         ))}
-                      </ul>
-                    ))}
                   </div>
                 </div>
               </div>

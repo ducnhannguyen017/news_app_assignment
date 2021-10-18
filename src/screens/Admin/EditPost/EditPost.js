@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "components/Admin/Navbar/Navbar";
-import Category from "components/Admin/Category/Category";
-// import { categories } from "data";
 import CustomContainer from "components/Admin/CustomContainer/CustomContainer";
 import {
   Button,
@@ -17,8 +15,9 @@ import {
   detailState as detailSelector,
 } from "app/selectors/Selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "app/action";
+import { getDetail, getPost } from "app/action";
 import { requestUpdatePost } from "api/api";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EditPost({ match }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getDetail({ post_id: match.params.id }));
@@ -63,12 +63,11 @@ export default function EditPost({ match }) {
   }, [detailState.data.data]);
 
   // console.log(postForm.data);
-  const { id, title, detail, sampleFile, description, parent_id, child_id } =
+  const { title, detail, description, parent_id, child_id } =
     postForm === undefined
       ? { title: "", detail: "", description: "" }
       : { id: match.params.id.toString(), ...postForm };
-  const postForm1 = { id: match.params.id.toString(), ...postForm };
-  console.log({ id: match.params.id.toString(), ...postForm });
+
   const handleChangePostForm = (e) => {
     setPostForm({
       id: match.params.id.toString(),
@@ -80,14 +79,24 @@ export default function EditPost({ match }) {
   const handleClickEditPost = async () => {
     try {
       console.log({
-        id: `${match.params.id}`,
-        ...postForm,
+        title: title.toString(),
+        description: description.toString(),
+        detail: detail.toString(),
+        id: match.params.id.toString(),
+        update_child_id: child_id.toString(),
+        update_parent_id: parent_id.toString(),
       });
       const res = await requestUpdatePost({
-        id: match.params.id.toString(),
-        ...postForm,
+        title: title.toString(),
+        description: description.toString(),
+        detail: detail.toString(),
+        post_id: match.params.id.toString(),
+        update_child_id: child_id.toString(),
+        update_parent_id: parent_id.toString(),
       });
       res.status === Number(1) ? alert(res.message) : alert("Lỗi");
+      dispatch(getPost());
+      history.goBack();
     } catch (error) {
       console.log(error);
     }
@@ -176,9 +185,12 @@ export default function EditPost({ match }) {
                 <CKEditor
                   editor={ClassicEditor}
                   data={detail}
+                  value={detail}
                   onReady={(editor) => {
                     // You can store the "editor" and use when it is needed.
-                    editor.setData(detail === null ? "" : detail);
+                    // if (editor.state === "state") {
+                    //   editor.setData(detail);
+                    // }
                     console.log("Editor is ready to use!", editor);
                   }}
                   onChange={(event, editor) => {
@@ -207,7 +219,7 @@ export default function EditPost({ match }) {
                   color="primary"
                   style={{ marginTop: "15px" }}
                 >
-                  add
+                  Done
                 </Button>
               </div>
             </CustomContainer>

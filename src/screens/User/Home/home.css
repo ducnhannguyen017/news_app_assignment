@@ -2037,9 +2037,9 @@ figure {
   font-weight: 700;
   position: relative;
 }
-.nav-folder .ul-nav-folder li:first-child a {
+/* .nav-folder .ul-nav-folder li:first-child a {
   color: #9f224e;
-}
+} */
 .nav-folder .ul-nav-folder li a:after {
   content: "";
   width: 100%;

@@ -58,8 +58,7 @@ export default function AllPosts() {
     parent_id: "",
     child_id: "",
   });
-  const { title, detail, sampleFile, description, parent_id, child_id } =
-    postForm;
+  const { title, detail, description, parent_id, child_id } = postForm;
   const handleChangePostForm = (e) => {
     setPostForm({ ...postForm, [e.target.name]: e.target.value.toString() });
   };
@@ -103,8 +102,8 @@ export default function AllPosts() {
     parentCategory(parentId) === undefined
       ? { name: "" }
       : parentCategory(parentId).category_child.filter(
-        (element) => element.id === childId
-      )[0];
+          (element) => element.id === childId
+        )[0];
 
   function convert(id, title, description, parent, child) {
     const parentName =
@@ -120,16 +119,16 @@ export default function AllPosts() {
     postTable.data === undefined
       ? {}
       : postTable.data.data.map((element) => {
-        return convert(
-          element.id,
-          element.title,
-          element.description,
-          element.parent_id,
-          element.child_id
-        );
-      });
+          return convert(
+            element.id,
+            element.title,
+            element.description,
+            element.parent_id,
+            element.child_id
+          );
+        });
   const handleClickSubmitForm = async () => {
-    const { title, detail, sampleFile, description, parent_id, child_id } = postForm;
+    const { title, detail, description, parent_id, child_id } = postForm;
 
     try {
       if (
@@ -143,13 +142,13 @@ export default function AllPosts() {
         alert("Hãy điền đầy đủ thông tin");
         console.log(postForm);
       } else {
-        let payload = new FormData()
-        payload.append("title", title.toString())
-        payload.append("detail", detail.toString())
-        payload.append("description", description.toString())
-        payload.append("parent_id", parent_id.toString())
-        payload.append("child_id", child_id.toString())
-        payload.append("sampleFile", selectedFile)
+        let payload = new FormData();
+        payload.append("title", title.toString());
+        payload.append("detail", detail.toString());
+        payload.append("description", description.toString());
+        payload.append("parent_id", parent_id.toString());
+        payload.append("child_id", child_id.toString());
+        payload.append("sampleFile", selectedFile);
         const res = await requestAddPost(payload);
         res.status === Number(1) ? alert(res.message) : alert("Lỗi");
         dispatch(getPost());
@@ -186,10 +185,13 @@ export default function AllPosts() {
           )}
         </CustomContainer>
         <CustomContainer headerText="Add Post">
-          <input type="file" onChange={(value) => {
-            // payload.append("sampleFile", JSON.stringify(value.target.files[0]))
-            setSelectedFile(value.target.files[0]);
-          }} />
+          <input
+            type="file"
+            onChange={(value) => {
+              // payload.append("sampleFile", JSON.stringify(value.target.files[0]))
+              setSelectedFile(value.target.files[0]);
+            }}
+          />
           <div>
             <h2>Title</h2>
             <TextField
@@ -227,11 +229,13 @@ export default function AllPosts() {
                 variant="filled"
                 className={classes.textField}
               >
-                {category.data.data.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {String(option.name)}
-                  </MenuItem>
-                ))}
+                {category.data.data === undefined
+                  ? null
+                  : category.data.data.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {String(option.name)}
+                      </MenuItem>
+                    ))}
               </TextField>
             )}
           </div>
@@ -283,7 +287,7 @@ export default function AllPosts() {
               name="detail"
               value={detail}
               className={classes.textField}
-            // onChange={handleChangePostForm}
+              // onChange={handleChangePostForm}
             />
           </div>
           <div>

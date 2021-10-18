@@ -1,7 +1,8 @@
 import { ApiClient } from "./config";
 
 export const requestCategory = () => ApiClient.get("api/list-category");
-export const requestPost = (params) => ApiClient.get("api/list-post", params);
+export const requestPost = (params) =>
+  ApiClient.get("api/list-post", { ...params, page: 1, paginate: 1000 });
 export const requestDetailPost = (params) =>
   ApiClient.get("api/detail-post", params);
 
@@ -23,3 +24,8 @@ export const requestRemovePost = (params) =>
   ApiClient.post("api/cms/remove-post", params);
 export const requestUpdatePost = (params) =>
   ApiClient.post("api/cms/update-post", params);
+
+export const requestUpdateChildCategory = (params) =>
+  ApiClient.post("api/cms/update-category-child", params);
+export const requestUpdateParentCategory = (params) =>
+  ApiClient.post("api/cms/update-category-parent", params);

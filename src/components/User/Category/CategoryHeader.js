@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 function CategoryHeader(props) {
   const { category, onClick } = props;
@@ -7,6 +7,14 @@ function CategoryHeader(props) {
     onClick(e.target.getAttribute("value"));
   };
 
+  const cate = useRef(null);
+  const handleActiveCategory = (e) => {
+    cate.current.childNodes.forEach((element) => {
+      element.classList.remove("active");
+    });
+    console.log(cate);
+    e.currentTarget.classList.add("active");
+  };
   return (
     <section className="section top-header top-header-folder">
       <div className="container" data-campaign="Header">
@@ -18,9 +26,13 @@ function CategoryHeader(props) {
           </div>
         </div>
         <nav className="width_common nav-folder">
-          <ul className="ul-nav-folder">
+          <ul className="ul-nav-folder" id={`list${category.id}`} ref={cate}>
             {category.category_child.map((categoryChild, index) => (
-              <li key={categoryChild.id}>
+              <li
+                key={categoryChild.id}
+                className=""
+                onClick={handleActiveCategory}
+              >
                 <a
                   title="Đại hội XIII"
                   data-medium="Menu-DaiHoiXiii"

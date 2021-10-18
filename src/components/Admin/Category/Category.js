@@ -15,7 +15,6 @@ import Button from "@material-ui/core/Button";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { Link } from "react-router-dom";
-import { requestRemoveParentCategory } from "api/api";
 
 const useRowStyles = makeStyles({
   root: {
@@ -27,6 +26,7 @@ const useRowStyles = makeStyles({
     padding: "0px",
     maxWidth: "80px",
     marginRight: "5px",
+    marginTop: "5px",
   },
 });
 
@@ -73,7 +73,10 @@ function Row(props) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0, paddingRight: "50px" }}
+          colSpan={6}
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
@@ -105,13 +108,15 @@ function Row(props) {
                       <TableCell>{childRow.name}</TableCell>
                       <TableCell>{childRow.createdAt}</TableCell>
                       <TableCell>{childRow.updatedAt}</TableCell>
-                      <TableCell style={{ display: "flex" }}>
+                      <TableCell>
                         <Button
                           variant="contained"
                           color="primary"
                           className={classes.button}
                         >
-                          <Link to={`/admin/edit-child/${childRow.id}`}>
+                          <Link
+                            to={`/admin/edit-child/${row.id}/${childRow.id}`}
+                          >
                             View
                           </Link>
                         </Button>

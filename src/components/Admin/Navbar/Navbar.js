@@ -14,6 +14,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { mainListItems } from "components/Admin/Navbar/NavbarMenu";
+import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const drawerWidth = 240;
 
@@ -75,12 +78,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Navbar() {
   const classes = useStyles();
+  const history = useHistory();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const logout = () => {
+    Cookies.remove("SESSION_ID");
+    history.push("/home");
   };
   return (
     <>
@@ -111,11 +119,9 @@ function Navbar() {
           >
             Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button onClick={logout} variant="contained" color="default">
+            Log out
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

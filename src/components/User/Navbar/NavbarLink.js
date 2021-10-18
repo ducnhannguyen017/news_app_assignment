@@ -17,17 +17,19 @@ function NavbarLink(props) {
               Mới Nhất
             </Link>
           </li>
-          {categories.map((item) => (
-            <li key={item.id} className="ykien" data-id="1001012">
-              <Link
-                to={`/home/${item.id}`}
-                title="Ý kiến"
-                data-medium="Menu-YKien"
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+          {categories === undefined
+            ? null
+            : categories.map((item) => (
+                <li key={item.id} className="ykien" data-id="1001012">
+                  <Link
+                    to={`/home/${item.id}`}
+                    title="Ý kiến"
+                    data-medium="Menu-YKien"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
         </ul>
         <div className="all-menu has_transition">
           <button

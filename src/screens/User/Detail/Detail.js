@@ -1,5 +1,6 @@
 import { getDetail } from "app/action";
 import { categoryState, detailState } from "app/selectors/Selectors";
+import Footer from "components/UI/Footer/Footer";
 import Header from "components/User/Header/Header";
 import Navbar from "components/User/Navbar/Navbar";
 import NewsDetail from "components/User/News/NewDetail";
@@ -28,6 +29,7 @@ function Detail({ match }) {
           setUrlParam={setUrlParam}
         />
       )}
+      <Footer />
     </>
   );
 }

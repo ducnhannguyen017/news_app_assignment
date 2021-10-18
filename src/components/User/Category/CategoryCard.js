@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import CategoryHeader from "components/User/Category/CategoryHeader";
 import NewsCard from "components/User/News/NewsCard";
+import { Link } from "react-router-dom";
 
 function CategoryCard(props) {
-  const { category, listPost } = props;
-  console.log(category.category_child.length);
+  const { category, listPost, categoryParentId, type } = props;
   const initialState =
     category.category_child.length === Number(0)
       ? null
@@ -22,28 +22,50 @@ function CategoryCard(props) {
         style={{ width: "100%" }}
       >
         <CategoryHeader category={category} onClick={onClickHandle} />
-        <div
-          className="width_common list-news-subfolder has-border-right"
-          style={{
-            marginTop: "15px",
-            paddingTop: "15px",
-            borderTop: "1px solid black",
-          }}
-        >
-          {listPost
-            .filter(
-              (onePost) =>
-                onePost.parent_id === Number(category.id) &&
-                onePost.child_id === Number(childId)
-            )
-            .map((newsCard) => (
-              <NewsCard newsCard={newsCard} key={newsCard.id} />
-            ))}
+        {type === "full" ? (
+          <div
+            className="width_common list-news-subfolder has-border-right"
+            style={{
+              marginTop: "15px",
+              paddingTop: "15px",
+              borderTop: "1px solid black",
+            }}
+          >
+            {listPost
+              .filter(
+                (onePost) =>
+                  onePost.parent_id === Number(category.id) &&
+                  onePost.child_id === Number(childId)
+              )
+              .map((newsCard) => (
+                <NewsCard newsCard={newsCard} key={newsCard.id} />
+              ))}
+          </div>
+        ) : (
+          <div
+            className="width_common list-news-subfolder has-border-right"
+            style={{
+              marginTop: "15px",
+              paddingTop: "15px",
+              borderTop: "1px solid black",
+            }}
+          >
+            {listPost
+              .filter(
+                (onePost) =>
+                  onePost.parent_id === Number(category.id) &&
+                  onePost.child_id === Number(childId)
+              )
+              .slice(0, 3)
+              .map((newsCard) => (
+                <NewsCard newsCard={newsCard} key={newsCard.id} />
+              ))}
 
-          <article className="item-news item-news-common">
-            <a href="/">Xem thêm ... </a>
-          </article>
-        </div>
+            <article className="item-news item-news-common">
+              <Link to={`/home/${categoryParentId}`}>Xem thêm ... </Link>
+            </article>
+          </div>
+        )}
       </div>
     </div>
   );

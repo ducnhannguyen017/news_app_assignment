@@ -14,7 +14,6 @@ import {
   requestRemoveChildCategory,
 } from "api/api";
 import { getCategory } from "app/action";
-import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,11 +133,13 @@ export default function AdminHome() {
                   <MenuItem key={0} value={0}>
                     Parent Category
                   </MenuItem>
-                  {data.data.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {String(option.name)}
-                    </MenuItem>
-                  ))}
+                  {data.data === undefined
+                    ? null
+                    : data.data.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {String(option.name)}
+                        </MenuItem>
+                      ))}
                 </TextField>
               )}
             </div>

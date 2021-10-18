@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "components/Admin/Navbar/Navbar";
 import CustomContainer from "components/Admin/CustomContainer/CustomContainer";
 import { MenuItem, TextField } from "@material-ui/core";
-import { categoryState } from "app/selectors/Selectors";
-import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
 export default function EditCategory({ match, type }) {
   const classes = useStyles();
   const [currency, setCurrency] = useState(1);
-  const category = useSelector(categoryState);
-
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };

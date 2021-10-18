@@ -41,6 +41,7 @@ function NewsCard(props) {
         </h2>
         <p className="description">
           <Link
+            to={`/detail/${newsCard.id}`}
             data-medium="Item-2"
             data-thumb="1"
             href="https://vnexpress.net/viet-nam-han-quoc-tang-cuong-hop-tac-cong-nghiep-quoc-phong-4357501.html"
